@@ -1,0 +1,143 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "I'm hoping to do some citation analysis. I want to count items from a set of Web of Science records so I can questions such as, \"how many journal articles in the last five years from a particular institution?\" and \"how many from that set are from a particular publisher?\" I want to use scripts to answer this question because I want the ability to answer these questions frequently on potentially large sets of records.  \n",
+    "   \n",
+    "There are a multiple of ways to go about answering this question. Web of Science allows the user to export result sets that are less than 500 in number in a variety of bibliographic file formats. It also allows the user to download the results in either BibTex, plain text, and tab-delimited format.  \n",
+    "  \n",
+    "This means that one way to parse and count records is importing the tab-delimited records into Excel and using filtering and searching to create sets of items and then capture these actions as macros for regular re-use. Alternatively, records could be sorted using commands in the linux shell or manipulated with the dark arts associated with BibTex.  \n",
+    "\n",
+    "For myself, I have opted to try Python to take on this challenge. I'm trying this for a number of reason, but one of the strongest is that I want to demonstrate how of iPython takes knowledge sharing to another level."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "###But before that, thanks must be extended!  \n",
+    "Much thanks to Scott Moynes who was kind enough to unpuzzle this for me!  \n",
+    "https://gist.github.com/copystar/082ee2161f9c7a54c47a  "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Install the modules "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "apt-get install bibutils  \n",
+    "pip install zope.component  \n",
+    "pip install zope.schema  \n",
+    "pip install bibliograph.rendering  \n",
+    "pip install bibliograph.parsing  "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "from bibliograph.parsing.parsers.bibtex import BibtexParser\n",
+    "bib = open('bibtex-example.bib').read()\n",
+    "parser = BibtexParser()\n",
+    "source = parser.preprocess(bib)\n",
+    "result = parser.parseEntry(source)\n",
+    "from pprint import pprint\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'ACMID': '2492105',\n",
+      " 'ADDRESS': 'Houston, TX',\n",
+      " 'ARTICLENO': '3',\n",
+      " 'ISSN': '1075-3583',\n",
+      " 'ISSUE_DATE': 'April 2013',\n",
+      " 'JOURNAL': 'Linux J.',\n",
+      " 'MONTH': 'apr',\n",
+      " 'NUMBER': '228',\n",
+      " 'PUBLISHER': 'Belltown Media',\n",
+      " 'TITLE': 'Running Scientific Code Using IPython and SciPy',\n",
+      " 'URL': 'http://dl.acm.org/citation.cfm?id=2492102.2492105',\n",
+      " 'VOLUME': '2013',\n",
+      " 'YEAR': '2013',\n",
+      " 'acmid': '2492105',\n",
+      " 'address': 'Houston, TX',\n",
+      " 'articleno': '3',\n",
+      " 'author': ['Bernard, Joey'],\n",
+      " 'authors': [{'firstname': 'Joey', 'lastname': 'Bernard', 'middlename': ''}],\n",
+      " 'identifiers': [{'label': 'ISSN', 'value': '1075-3583'}],\n",
+      " 'issn': '1075-3583',\n",
+      " 'issue_date': 'April 2013',\n",
+      " 'journal': 'Linux J.',\n",
+      " 'month': 'apr',\n",
+      " 'number': '228',\n",
+      " 'pid': 'Bernard:2013:RSC:2492102.2492105',\n",
+      " 'publication_month': 'apr',\n",
+      " 'publication_url': 'http://dl.acm.org/citation.cfm?id=2492102.2492105',\n",
+      " 'publication_year': '2013',\n",
+      " 'publisher': 'Belltown Media',\n",
+      " 'reference_type': 'ArticleReference',\n",
+      " 'title': 'Running Scientific Code Using IPython and SciPy',\n",
+      " 'url': 'http://dl.acm.org/citation.cfm?id=2492102.2492105',\n",
+      " 'volume': '2013',\n",
+      " 'year': '2013'}\n"
+     ]
+    }
+   ],
+   "source": [
+    "pprint(result)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 2",
+   "language": "python",
+   "name": "python2"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}
